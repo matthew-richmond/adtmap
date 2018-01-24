@@ -96,6 +96,7 @@ void* map_put(MapADT map, void *key, void *value){
 			if(equals((*map->data)->key,key)){
 				exists = &((*map->data)->value);
 				(*map->data)->value = value;
+				free(equals);
 			}
 			map->data ++;
 		}
@@ -117,11 +118,12 @@ void* map_put(MapADT map, void *key, void *value){
 		map_rewind(map);
 		return value;
 	}
+	free(equals);
 	return value;
 }
 
 //retrieves the value of a key from the map
-const void *map_get(MapADT map, void *key){
+const void* map_get(MapADT map, void *key){
 	int elms = map->size;
 	const void* val;
 	bool (*equals) (const void* a, void* b);
@@ -138,7 +140,7 @@ const void *map_get(MapADT map, void *key){
 
 //deletes a key/value pair from the map.
 
-void *map_delete(MapADT map, void *key){
+void* map_delete(MapADT map, void *key){
 	int elms = map->size;
 	void *delval = NULL;
 	bool (*equals) (const void* a, void* b);
